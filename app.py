@@ -44,13 +44,13 @@ def scrape_site_data(site_name, credentials):
 
     try:
         with requests.Session() as s:
-            login_res = s.post(login_url, data=login_payload, verify=False, timeout=10)
+            login_res = s.post(login_url, data=login_payload, verify=False, timeout=30)
             login_res.encoding = 'euc-kr'
             if "아이디 또는 비밀번호" in login_res.text:
                 print(f"[실패] '{site_name}' 로그인 실패.")
                 return None
 
-            target_res = s.get(target_url, verify=False, timeout=10)
+            target_res = s.get(target_url, verify=False, timeout=30)
             target_res.encoding = 'euc-kr'
             
             soup = BeautifulSoup(target_res.text, 'lxml')
